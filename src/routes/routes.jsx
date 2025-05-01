@@ -1,7 +1,12 @@
 import { createBrowserRouter } from "react-router";
 import HomeLayout from "../layouts/HomeLayout";
+//import AuthLayout from "../layouts/AuthLayout";
 import Home from "../pages/Home";
 import CategoryNews from "../pages/CategoryNews";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
+import AuthLayout from "../layouts/AuthLayout";
+import NewsDetails from "../pages/NewsDetails";
 
 //import CategoryNews from "../pages/CategoryNews";
 //import Home from "../pages/Home";
@@ -9,26 +14,38 @@ import CategoryNews from "../pages/CategoryNews";
 const router = createBrowserRouter([
   {
     path: "/",
-   Component: HomeLayout,
+    Component: HomeLayout,
     children: [
       {
         path: "",
-        Component: Home
+        Component: Home,
       },
       {
         path: "/category/:id",
-       Component: CategoryNews,
+        Component: CategoryNews,
         loader: () => fetch("/news.json"),
       },
     ],
   },
   {
     path: "/auth",
-    element: <h2>Authentication Layout</h2>,
+
+    Component: AuthLayout,
+    children: [
+      {
+        path: "/auth/login",
+        Component: Login,
+      },
+
+      {
+        path: "/auth/register",
+        Component: Register,
+      },
+    ],
   },
   {
-    path: "/news",
-    element: <h2>News Layout</h2>,
+    path: "/news-details/:id",
+    Component: NewsDetails,
   },
   {
     path: "/*",
